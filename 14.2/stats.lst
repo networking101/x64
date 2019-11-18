@@ -1,0 +1,28 @@
+     1                                 %line 1+1 stats.asm
+     2                                 [section .data]
+     3                                 
+     4                                 [section .text]
+     5                                 [global stats]
+     6                                 stats:
+     7 00000000 4154                    push r12
+     8                                 
+     9 00000002 49C7C300000000          mov r11, 0
+    10 00000009 41BC00000000            mov r12d, 0
+    11                                 
+    12                                 sumLoop:
+    13 0000000F 428B049F                mov eax, dword [rdi + r11*4]
+    14 00000013 4101C4                  add r12d, eax
+    15 00000016 49FFC3                  inc r11
+    16 00000019 4939F3                  cmp r11, rsi
+    17 0000001C 72EF                    jb sumLoop
+    18                                 
+    19 0000001E 448922                  mov dword [rdx], r12d
+    20                                 
+    21 00000021 4489E0                  mov eax, r12d
+    22 00000024 99                      cdq
+    23 00000025 F7FE                    idiv esi
+    24                                 
+    25 00000027 8901                    mov dword [rcx], eax
+    26                                 
+    27 00000029 415C                    pop r12
+    28 0000002B C3                      ret

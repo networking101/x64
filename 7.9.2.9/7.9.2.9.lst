@@ -1,0 +1,36 @@
+     1                                 %line 1+1 7.9.2.9.asm
+     2                                 [section .data]
+     3                                 EXIT_SUCCESS equ 0
+     4                                 SYS_exit equ 60
+     5                                 
+     6 00000000 0A000000               n dd 10
+     7 00000004 00000000               fin dd 0
+     8                                 
+     9                                 [section .text]
+    10                                 [global _start]
+    11                                 _start:
+    12                                 
+    13                                 
+    14                                 
+    15 00000000 8B0C25[00000000]        mov ecx, dword [n]
+    16                                 
+    17                                 
+    18 00000007 31C0                    xor eax, eax
+    19 00000009 BA01000000              mov edx, 1
+    20                                 
+    21                                 FIB:
+    22                                 
+    23                                 
+    24                                 
+    25                                 
+    26                                 
+    27                                 
+    28 0000000E 0FC1D0                  xadd eax, edx
+    29 00000011 E2F9                    loop FIB
+    30                                 
+    31                                 last:
+    32 00000013 890425[00000000]        mov dword [fin], eax
+    33                                 
+    34 0000001A 48C7C03C000000          mov rax, SYS_exit
+    35 00000021 48C7C700000000          mov rdi, EXIT_SUCCESS
+    36 00000028 0F05                    syscall

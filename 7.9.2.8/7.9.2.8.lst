@@ -1,0 +1,27 @@
+     1                                 %line 1+1 7.9.2.8.asm
+     2                                 [section .data]
+     3                                 EXIT_SUCCESS equ 0
+     4                                 SYS_Exit equ 60
+     5                                 
+     6 00000000 0084D717               n dd 400000000
+     7 00000004 0000000000000000       sumN dq 0
+     8                                 
+     9                                 [section .text]
+    10                                 [global _start]
+    11                                 _start:
+    12 00000000 8B0C25[00000000]        mov ecx, dword [n]
+    13                                 
+    14                                 LOOP1:
+    15 00000007 010C25[00000000]        add dword [sumN], ecx
+    16 0000000E E2F5                    loop LOOP1
+    17                                 
+    18                                 FINISH:
+    19 00000010 8B0425[00000000]        mov eax, dword [sumN]
+    20 00000017 F7E0                    mul eax
+    21 00000019 890425[00000000]        mov dword [sumN], eax
+    22 00000020 891425[04000000]        mov dword [sumN+4], edx
+    23                                 
+    24                                 last:
+    25 00000027 48C7C03C000000          mov rax, SYS_Exit
+    26 0000002E 48C7C700000000          mov rdi, EXIT_SUCCESS
+    27 00000035 0F05                    syscall
